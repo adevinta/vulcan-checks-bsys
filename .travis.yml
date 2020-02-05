@@ -1,5 +1,7 @@
 language: go
 dist: trusty
+services:
+  - docker
 go:
   - 1.13.3
 env:
@@ -8,6 +10,5 @@ env:
     - CGO_ENABLED=0
     - DOCKER_API_VERSION=1.23
 go_import_path: github.com/adevinta/vulcan-checks-bsys
-install: sh ./_script/confdocker
 script:
-  - go test -short
+  - go test -short ./...
