@@ -265,8 +265,8 @@ func TestGetCurrentSDKVersion(t *testing.T) {
 	}{
 		{
 			name:    "HappyPath",
-			sdkPath: "github.com/google/go-cmp",
-			want:    "v0.3.1",
+			sdkPath: "github.com/manelmontilla/toml",
+			want:    "v0.3.0",
 		},
 	}
 	for _, tt := range tests {
