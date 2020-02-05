@@ -1,0 +1,5 @@
+Description = "Description for the check"
+Timeout = 700
+Options = "{\"raw_size\":2, \"Report_size\":2}"
+AssetTypes = ["DomainName"]
+QueueName = "NessusQueue"

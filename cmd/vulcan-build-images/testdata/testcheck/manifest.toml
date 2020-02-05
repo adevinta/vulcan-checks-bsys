@@ -1,0 +1,3 @@
+Description = "Test check"
+Timeout= 700 # Expressed in milliseconds as an integer.
+Options = '{"one":1, "two":2}'

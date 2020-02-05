@@ -1,0 +1,4 @@
+Description = "Description for the check"
+Timeout = 500
+Options = "{ \"paths\": [{\"path\":\"/one\",\"resp_regex\":\".*(Found).*\"}] }"
+AssetTypes = ["WebAddress"]

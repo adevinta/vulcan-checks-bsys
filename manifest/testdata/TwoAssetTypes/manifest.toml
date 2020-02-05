@@ -1,0 +1,4 @@
+Description = "Description for the check"
+Timeout= 700 # Expressed in milliseconds as an integer.
+Options = '{"raw_size":2, "Report_size":2}'
+AssetTypes = ["DomainName","IP"]
