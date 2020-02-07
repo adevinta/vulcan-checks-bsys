@@ -22,9 +22,12 @@ type Config struct {
 	SDKPath                  string `toml:"docker_sdk_path"`
 	DockerRegistry           string `toml:"docker_registry_pwd"`
 	VulcanChecksRepo         string `toml:"vulcan_checks_repo"`
-	PersistencePro           string `toml:"persistence_pro"`
-	PersistencePre           string `toml:"persistence_pre"`
-	PersistenceDev           string `toml:"persistence_dev"`
+
+	PrimaryMasterBranchEnvs   []string `toml:"primary_master_branch_envs"`
+	SecondaryMasterBranchEnvs []string `toml:"secondary_master_branch_envs"`
+
+	PrimaryDevBranchEnvs   []string `toml:"primary_dev_branch_envs"`
+	SecondaryDevBranchEnvs []string `toml:"secondary_dev_branch_envs"`
 }
 
 // LoadFrom loads the config from the specified file path.

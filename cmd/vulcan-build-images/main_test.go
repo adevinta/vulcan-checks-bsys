@@ -71,6 +71,7 @@ func Test_pubChecktypeToPersistence(t *testing.T) {
 		checkName string
 		metadata  manifest.Data
 		imagePath string
+		fail      bool
 	}
 	tests := []struct {
 		name              string
@@ -80,14 +81,26 @@ func Test_pubChecktypeToPersistence(t *testing.T) {
 		wantErr           bool
 	}{
 		{
-			name: "HappyPath",
+			name: "HappyPathFail",
 			args: args{
 				checkName: "check",
-				imagePath: "docker.schibsted.io/check:2",
+				imagePath: "docker.example.com/check:2",
 				metadata:  manifest.Data{},
+				fail:      true,
 			},
 			apiResponse:       "{\"properties\":{\"docker.label.commit\": [\"01234a\"],\"docker.label.sdk-version\": [\"8e938a5\"]}}",
 			persistenceStatus: http.StatusCreated,
+		},
+		{
+			name: "HappyPathNoFail",
+			args: args{
+				checkName: "check",
+				imagePath: "docker.example.com/check:2",
+				metadata:  manifest.Data{},
+				fail:      false,
+			},
+			apiResponse:       "{\"properties\":{\"docker.label.commit\": [\"01234a\"],\"docker.label.sdk-version\": [\"8e938a5\"]}}",
+			persistenceStatus: http.StatusInternalServerError,
 		},
 	}
 	for _, tt := range tests {
@@ -95,7 +108,7 @@ func Test_pubChecktypeToPersistence(t *testing.T) {
 			tt := tt
 			s := buildFakePersistence(tt.apiResponse, tt.persistenceStatus)
 			defer s.Close()
-			if err := pubChecktypeToPersistence(tt.args.checkName, tt.args.metadata, tt.args.imagePath, s.URL); (err != nil) != tt.wantErr {
+			if err := pubChecktypeToPersistence(tt.args.checkName, tt.args.metadata, tt.args.imagePath, tt.args.fail, s.URL); (err != nil) != tt.wantErr {
 				t.Errorf("pubChecktypeToPersistence() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
