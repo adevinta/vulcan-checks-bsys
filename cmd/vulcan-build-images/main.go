@@ -124,7 +124,7 @@ func printHelp() {
 type checkImageInfo struct {
 	checktypeName string // e.g.: vulcan-wpscan-experimental
 	imagePath     string // e.g.: cmd/vulcan-wpscan
-	imageName     string // e.g.: containers.schibsted.io/vulcan-checks/vulcan-wpscan-experimental
+	imageName     string // e.g.: container.example.com/vulcan-checks/vulcan-wpscan-experimental
 	manifest      manifest.Data
 }
 
@@ -328,7 +328,7 @@ func buildImageNameWithEnvSuffix(imgName, tag string) string {
 func buildImageName(imgName, tag string) string {
 	return fmt.Sprintf("%s/%s/%s:%s", config.Cfg.DockerRegistry, config.Cfg.VulcanChecksRepo, imgName, tag)
 }
-func pubChecktypeToPersistence(checkName string, metadata manifest.Data, imagePath string, envs ...string) error {
+func pubChecktypeToPersistence(checkName string, metadata manifest.Data, imagePath string, fail bool, envs ...string) error {
 	for _, persistenceEndPoint := range envs {
 		// Only publish checktypes to valid endpoints
 		if persistenceEndPoint == "" {
@@ -338,7 +338,7 @@ func pubChecktypeToPersistence(checkName string, metadata manifest.Data, imagePa
 		pClient := persistence.NewClient(persistenceEndPoint)
 		assetTypes, err := metadata.AssetTypes.Strings()
 		if err != nil {
-			return (err)
+			return err
 		}
 		resp, err := pClient.PublishChecktype(persistence.Checktype{
 			Name:         checkName,
@@ -350,13 +350,19 @@ func pubChecktypeToPersistence(checkName string, metadata manifest.Data, imagePa
 			Timeout:      metadata.Timeout,
 			Assets:       assetTypes,
 		})
-		if err != nil {
+		if err != nil && fail {
 			return err
 		}
+		if err != nil && !fail {
+			fmt.Printf("error pushing to secondary persistence:%+s, the process will continue", persistenceEndPoint)
+			continue
+		}
+
 		logger.Printf("Checktype %v published to the persistence service. Checktype data returned:\n %+v", imagePath, resp)
 	}
 	return nil
 }
+
 func pushImagesAndChecktypes(imagesToPush []checkImageInfo) error {
 	for _, i := range imagesToPush {
 		logger.Printf("Pushing image %s", i.imageName)
@@ -366,11 +372,21 @@ func pushImagesAndChecktypes(imagesToPush []checkImageInfo) error {
 		}
 		logger.Printf("Docker image %s pushed", i.imageName)
 		if buildBranch != prodBranchName {
-			// In feature branches only publish checktypes to dev env
-			err = pubChecktypeToPersistence(i.checktypeName, i.manifest, i.imageName, config.Cfg.PersistenceDev)
+			// In feature branches only publish checktypes to dev envs.
+			// For the primary envs we fail if there is an error publising the check to any of them.
+			err = pubChecktypeToPersistence(i.checktypeName, i.manifest, i.imageName, true, config.Cfg.PrimaryDevBranchEnvs...)
+			if err == nil {
+				// For the primary envs we fail if there is an error publising the check to any of them.
+				err = pubChecktypeToPersistence(i.checktypeName, i.manifest, i.imageName, false, config.Cfg.PrimaryDevBranchEnvs...)
+			}
 		} else {
-			// In master branch publish checktypes to all the environments
-			err = pubChecktypeToPersistence(i.checktypeName, i.manifest, i.imageName, config.Cfg.PersistencePre, config.Cfg.PersistencePro)
+			// In master branch publish checktypes to all the environments.
+			primaryEnvs := append(config.Cfg.PrimaryMasterBranchEnvs, config.Cfg.PrimaryDevBranchEnvs...)
+			err = pubChecktypeToPersistence(i.checktypeName, i.manifest, i.imageName, true, primaryEnvs...)
+			if err == nil {
+				secondaryEnvs := append(config.Cfg.PrimaryMasterBranchEnvs, config.Cfg.SecondaryDevBranchEnvs...)
+				err = pubChecktypeToPersistence(i.checktypeName, i.manifest, i.imageName, false, secondaryEnvs...)
+			}
 		}
 		if err != nil {
 			return err
