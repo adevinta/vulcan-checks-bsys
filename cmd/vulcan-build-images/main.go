@@ -384,7 +384,7 @@ func pushImagesAndChecktypes(imagesToPush []checkImageInfo) error {
 			primaryEnvs := append(config.Cfg.PrimaryMasterBranchEnvs, config.Cfg.PrimaryDevBranchEnvs...)
 			err = pubChecktypeToPersistence(i.checktypeName, i.manifest, i.imageName, true, primaryEnvs...)
 			if err == nil {
-				secondaryEnvs := append(config.Cfg.PrimaryMasterBranchEnvs, config.Cfg.SecondaryDevBranchEnvs...)
+				secondaryEnvs := append(config.Cfg.SecondaryMasterBranchEnvs, config.Cfg.SecondaryDevBranchEnvs...)
 				err = pubChecktypeToPersistence(i.checktypeName, i.manifest, i.imageName, false, secondaryEnvs...)
 			}
 		}
