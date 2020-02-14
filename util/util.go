@@ -405,9 +405,8 @@ func FetchImageTagInfo(image string, tag string) (ImageVersionInfo, error) {
 	restyClient := resty.New()
 	client := restyClient.SetHostURL(config.Cfg.DockerAPIBaseExtendedURL)
 	setupAPICred(client)
-	tagsPath := fmt.Sprintf("%s/%s/%s/manifest.json?properties", config.Cfg.VulcanChecksRepo, image, tag)
+	tagsPath := fmt.Sprintf("%s/%s/manifest.json?properties", image, tag)
 	r := client.R()
-
 	response, err := r.Get(tagsPath)
 	if err != nil {
 		return result, err
@@ -433,7 +432,6 @@ func FetchImageTagInfo(image string, tag string) (ImageVersionInfo, error) {
 	if err != nil {
 		return result, err
 	}
-
 	commits, exists := payload.Properties["docker.label.commit"]
 	if !exists {
 		// NOTE: consider using Logger.
