@@ -424,6 +424,10 @@ func forceRun(imagePath string) error {
 		env = append(env, "VULCAN_CHECK_TARGET="+c.Check.Target)
 		env = append(env, "VULCAN_CHECK_OPTIONS="+c.Check.Opts)
 		env = append(env, "VULCAN_ALLOW_PRIVATE_IPS="+strconv.FormatBool(allowPrivateIPs))
+
+		for k, v := range c.RequiredVars {
+			env = append(env, fmt.Sprintf("%s=%s", k, v))
+		}
 	}
 	return util.RunCheckImage(imageName, env)
 }
