@@ -1,0 +1,31 @@
+"docker_api_base_url" = "$DOCKER_API_URL"
+"docker_api_base_extended_url" = "$DOCKER_API_EXETENDED_URL"
+"docker_registry_user" = ""  # can be overridden with the env var DOCKER_REGISTRY_USER.
+"docker_registry_pwd"  = ""  # can be overridden with the env var DOCKER_REGISTRY_PWD.
+"docker_registry" = "https://docker.example.com" # can be overridden with the env var DOCKER_REGISTRY.
+"sdk_path" = "github.com/adevinta/vulcan-check-sdk"
+"vulcan_checks_repo" = "vulcan-checks"
+
+# Defines the url's of the persistence envs that the checks need to be
+# published to when a commit is made to the master branch of the checks
+# repository. If publishing any of these envs fails the build system with fail
+# the operation.
+"primary_master_branch_envs" = []
+
+# Defines the url's of the persistence envs that the checks need to be
+# published to when a commit is made to the master branch of the checks
+# repository. If publishing any of these envs fails, the build system will not
+# fail the operation but just print a warning to the stdout.
+"secondary_master_branch_envs" = []
+
+# Defines the url's of the persistence envs that the checks need to be
+# published to when a commit is made any branch of the checks repository.
+# If publishing any of these envs fails, the build system with fail
+# the operation.
+"primary_dev_branch_envs" = []
+
+# Defines the url's of the persistence envs that the checks need to be
+# published to when a commit is made any branch of the checks repository.
+# If publishing any of these envs fails, the build system will not
+# fail the operation but just print a warning to the stdout.
+"secondary_dev_branch_envs" = []
