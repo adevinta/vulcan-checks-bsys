@@ -1,6 +1,6 @@
 "docker_api_base_url" = "https://example.com/docker/api/docker/docker-local/v2"
 "docker_api_base_extended_url" = "https://docker.example.com/docker/docker-local"
-"docker_registry_user" = ""  # can be overridden with the env var DOCKER_REGISTRY_USR.
+"docker_registry_user" = ""  # can be overridden with the env var DOCKER_REGISTRY_USER.
 "docker_registry_pwd"  = ""  # can be overridden with the env var DOCKER_REGISTRY_PWD.
 "docker_registry" = "https://docker.example.com" # can be overridden with the env var DOCKER_REGISTRY.
 "sdk_path" = "github.com/adevinta/vulcan-check-sdk"
