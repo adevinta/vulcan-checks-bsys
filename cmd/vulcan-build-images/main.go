@@ -372,12 +372,14 @@ func pushImagesAndChecktypes(imagesToPush []checkImageInfo) error {
 		}
 		logger.Printf("Docker image %s pushed", i.imageName)
 		if buildBranch != prodBranchName {
-			// In feature branches only publish checktypes to dev envs.
-			// For the primary envs we fail if there is an error publising the check to any of them.
+			// In feature branches only publish checktypes to dev envs. For the
+			// primary envs we fail if there is an error publising the check to
+			// any of them.
 			err = pubChecktypeToPersistence(i.checktypeName, i.manifest, i.imageName, true, config.Cfg.PrimaryDevBranchEnvs...)
 			if err == nil {
-				// For the primary envs we fail if there is an error publising the check to any of them.
-				err = pubChecktypeToPersistence(i.checktypeName, i.manifest, i.imageName, false, config.Cfg.PrimaryDevBranchEnvs...)
+				// For the primary envs we don't fail if there is an error
+				// publising the check to any of them.
+				err = pubChecktypeToPersistence(i.checktypeName, i.manifest, i.imageName, false, config.Cfg.SecondaryDevBranchEnvs...)
 			}
 		} else {
 			// In master branch publish checktypes to all the environments.
