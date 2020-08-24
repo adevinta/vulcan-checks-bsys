@@ -566,32 +566,6 @@ func getAgentAddr(addr string) string {
 	parts := strings.Split(u.Host, ":")
 	host := strings.Replace(u.Host, parts[0], "localhost", -1)
 	return host
-	/* connAddr, err := net.ResolveTCPAddr("tcp", u.Host)
-	if err != nil {
-		panic(err)
-	}
-	ifaceName := "docker0"
-	iface, err := net.InterfaceByName(ifaceName)
-	if err != nil {
-		panic(err)
-	}
-	addrs, err := iface.Addrs()
-	if err != nil {
-		panic(err)
-	}
-	for _, addr := range addrs {
-		ip, _, err := net.ParseCIDR(addr.String())
-		if err != nil {
-			panic(err)
-		}
-		// Check if it is IPv4.
-		if ip.To4() != nil {
-			connAddr.IP = ip
-			return connAddr.String()
-		}
-	}
-
-	panic(errors.New("failed to determine Docker agent IP address")) */
 }
 
 func forceBuild(imagePath string) (string, error) {
