@@ -18,7 +18,7 @@ CGO_ENABLED=0 ../vulcan-checks-bsys/cmd/vulcan-build-images/vulcan-build-images 
 # How to run a check locally and generate a report with its output
 
 You will also have to install the [security-overview](https://github.com/adevinta/security-overview) command line
-tool and have a [local.toml](https://github.com/adevinta/vulcan-checks/cmd/vulcan-http-headers/local.toml.example) file in the check's directory.
+tool and have a [local.toml](https://github.com/adevinta/vulcan-checks/blob/master/cmd/vulcan-exposed-http/local.toml.example) file in the check's directory.
 
 Example:
 ```
