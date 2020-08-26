@@ -485,13 +485,11 @@ func forceRunReport(imagePath string, reportPath string) error {
 	if err != nil {
 		return err
 	}
-
 	var qdone = make(chan error)
 	go func() {
 		err := q.Start()
 		qdone <- err
 	}()
-
 	err = q.WaitStart(time.Duration(5) * time.Second)
 	if err != nil {
 		return err
@@ -517,11 +515,17 @@ func forceRunReport(imagePath string, reportPath string) error {
 	for k, v := range c.RequiredVars {
 		env = append(env, fmt.Sprintf("%s=%s", k, v))
 	}
+	fmt.Printf("env passed to docker %+v", env)
 	err = util.RunCheckReportImage(imageName, env, c.Check.Target, host)
 	if err != nil {
+		cerr := closeQueue(&q, qdone)
+		if cerr != nil {
+			err = fmt.Errorf("error: %s, and error closing the queue %w", err.Error(), cerr)
+
+		}
 		return err
 	}
-	// Get the last message and print the report out
+	// Get the last message and print the report out.
 	var finish bool
 	var last queue.Check
 	for !finish {
@@ -535,7 +539,19 @@ func forceRunReport(imagePath string, reportPath string) error {
 		}
 		last = *c
 	}
-	err = q.Stop()
+	err = closeQueue(&q, qdone)
+	if err != nil {
+		return fmt.Errorf("error closing the queue: %w", err)
+	}
+	content, err := json.Marshal(last.State.Report)
+	if err != nil {
+		return err
+	}
+	return ioutil.WriteFile(reportPath, content, 0777)
+}
+
+func closeQueue(q *queue.SimpleMQClientServer, qdone chan error) error {
+	err := q.Stop()
 	if err != nil {
 		return err
 	}
@@ -543,11 +559,7 @@ func forceRunReport(imagePath string, reportPath string) error {
 	if err != nil && !errors.Is(err, http.ErrServerClosed) {
 		return err
 	}
-	content, err := json.Marshal(last.State.Report)
-	if err != nil {
-		return err
-	}
-	return ioutil.WriteFile(reportPath, content, 0777)
+	return nil
 }
 
 func queueAddr(addr string) string {
@@ -558,6 +570,7 @@ func queueAddr(addr string) string {
 	host := u.Host
 	return strings.Replace(host, "localhost", "host.docker.internal", -1)
 }
+
 func getAgentAddr(addr string) string {
 	u, err := url.Parse(addr)
 	if err != nil {

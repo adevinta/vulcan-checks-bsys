@@ -27,6 +27,7 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
+	specs "github.com/opencontainers/image-spec/specs-go/v1"
 	"golang.org/x/crypto/ssh/terminal"
 	"gopkg.in/resty.v1"
 
@@ -89,8 +90,11 @@ func RunCheckImage(imgName string, env []string) error {
 		AttachStdin:  true,
 		Env:          env,
 	}
-
-	r, err := cli.ContainerCreate(ctx, cfg, nil, nil, "")
+	platform := &specs.Platform{
+		OS:           "linux",
+		Architecture: "amd64",
+	}
+	r, err := cli.ContainerCreate(ctx, cfg, nil, nil, platform, "")
 	if err != nil {
 		return err
 	}
@@ -115,7 +119,11 @@ func RunCheckImage(imgName string, env []string) error {
 		return err
 	}
 
-	_, err = cli.ContainerWait(ctx, r.ID)
+	wait, waitErr := cli.ContainerWait(ctx, r.ID, container.WaitConditionNotRunning)
+	select {
+	case _ = <-wait:
+	case err = <-waitErr:
+	}
 
 	return err
 }
@@ -150,8 +158,11 @@ func RunCheckReportImage(imgName string, env []string, target string, host bool)
 			NetworkMode: "host",
 		}
 	}
-
-	r, err := cli.ContainerCreate(ctx, cfg, hconfig, nil, "")
+	platform := &specs.Platform{
+		OS:           "linux",
+		Architecture: "amd64",
+	}
+	r, err := cli.ContainerCreate(ctx, cfg, hconfig, nil, platform, "")
 	if err != nil {
 		return err
 	}
@@ -176,7 +187,11 @@ func RunCheckReportImage(imgName string, env []string, target string, host bool)
 		return err
 	}
 
-	_, err = cli.ContainerWait(ctx, r.ID)
+	wait, waitErr := cli.ContainerWait(ctx, r.ID, container.WaitConditionNotRunning)
+	select {
+	case _ = <-wait:
+	case err = <-waitErr:
+	}
 
 	return err
 }
