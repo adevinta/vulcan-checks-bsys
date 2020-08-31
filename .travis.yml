@@ -1,14 +1,13 @@
 language: go
-dist: trusty
 services:
   - docker
 go:
-  - 1.13.3
+  - 1.15
 env:
   global:
     - IMAGES_TO_BUILD_PATH=/tmp/images
     - CGO_ENABLED=0
     - DOCKER_API_VERSION=1.23
 go_import_path: github.com/adevinta/vulcan-checks-bsys
-script:
-  - go test -short ./...
+install: _script/bootstrap
+script: _script/cibuild
