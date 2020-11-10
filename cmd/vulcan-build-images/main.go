@@ -424,6 +424,7 @@ func forceRun(imagePath string) error {
 		}
 		// NOTE: the name of the env vars should be read from public constants of the sdk.
 		env = append(env, "VULCAN_CHECK_TARGET="+c.Check.Target)
+		env = append(env, "VULCAN_CHECK_ASSET_TYPE="+c.Check.AssetType)
 		env = append(env, "VULCAN_CHECK_OPTIONS="+c.Check.Opts)
 		env = append(env, "VULCAN_ALLOW_PRIVATE_IPS="+strconv.FormatBool(allowPrivateIPs))
 

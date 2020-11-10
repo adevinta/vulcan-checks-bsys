@@ -18,7 +18,7 @@ var (
 	logger                        = check.NewCheckLog(name)
 )
 
-func run(ctx context.Context, target string, optJSON string, state state.State) (err error) {
+func run(ctx context.Context, target, assetType, optJSON string, state state.State) (err error) {
 
 	addr := target
 	d := &net.Dialer{Timeout: time.Second * timeout}
