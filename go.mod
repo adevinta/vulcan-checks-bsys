@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/BurntSushi/toml v0.3.1
-	github.com/adevinta/vulcan-check-sdk v0.0.0-20201105165301-6a6f524ef5b4
+	github.com/adevinta/vulcan-check-sdk v0.0.0-20201110113554-467cced82ba2
 	github.com/adevinta/vulcan-report v0.0.0-20190503133936-d8a2d4cb18ff
 	github.com/docker/docker v1.13.1
 	github.com/google/go-cmp v0.4.0
