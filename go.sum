@@ -2,9 +2,9 @@ github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/Microsoft/go-winio v0.5.0 h1:Elr9Wn+sGKPlkaBvwu4mTrxtmOp3F3yV9qhaHbXGjwU=
 github.com/Microsoft/go-winio v0.5.0/go.mod h1:JPGBdM1cNvN/6ISo+n8V5iA4v8pBzdOpzfwIujj1a84=
-github.com/adevinta/vulcan-check-sdk v0.0.0-20210531064101-0bbc89e25d42 h1:mtUFdR5JyBdEyKSUNk/P6E3CUTcKhNa0zoPbePP55a0=
-github.com/adevinta/vulcan-check-sdk v0.0.0-20210531064101-0bbc89e25d42/go.mod h1:Ke6+dMDQzcwI1a5vNhk71JywI+mUi2OQU3soCJJXPaA=
-github.com/adevinta/vulcan-report v0.0.0-20210528090423-5280af1d1f0b/go.mod h1:mj4gaLILjExwR6TV0zCyoSqNFaPBaGI9ngZwiOdPtA0=
+github.com/adevinta/vulcan-check-sdk v0.0.0-20210609062910-e4ce684f8fc9 h1:0KoROf/ij1SO4P7ZEDaEj5Epj4G+u5Y2cIdqpQx/mDc=
+github.com/adevinta/vulcan-check-sdk v0.0.0-20210609062910-e4ce684f8fc9/go.mod h1:4qN3r3Npp3bAdZ9/2THRDbucDEHaHqkcW8mv6huDRlw=
+github.com/adevinta/vulcan-report v0.0.0-20210608141555-94465cb70da6/go.mod h1:mj4gaLILjExwR6TV0zCyoSqNFaPBaGI9ngZwiOdPtA0=
 github.com/adevinta/vulcan-types v0.0.0-20200922093209-437fd6d5ab11/go.mod h1:gflQ+QgTgSGHMJp+kUnogHadjASIDcvCTwH1v/fqT3U=
 github.com/alcortesm/tgz v0.0.0-20161220082320-9c5fe88206d7/go.mod h1:6zEj6s6u/ghQa61ZWa/C2Aw3RkjiTBOix7dkqa1VLIs=
 github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239/go.mod h1:2FmKhYUyUczH0OGQWaF5ceTx0UBShxjsH6f8oGKYe2c=
@@ -103,8 +103,8 @@ golang.org/x/sys v0.0.0-20191204072324-ce4227a45e2e/go.mod h1:h1NjWce9XRLGQEsW7w
 golang.org/x/sys v0.0.0-20201119102817-f84b799fce68/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20210423082822-04245dca01da/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
-golang.org/x/sys v0.0.0-20210601080250-7ecdf8ef093b h1:qh4f65QIVFjq9eBURLEYWqaEXmOyqdUyiBSgaXWccWk=
-golang.org/x/sys v0.0.0-20210601080250-7ecdf8ef093b/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.0.0-20210608053332-aa57babbf139 h1:C+AwYEtBp/VQwoLntUmQ/yx3MS9vmZaKNdw5eOpoQe8=
+golang.org/x/sys v0.0.0-20210608053332-aa57babbf139/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1 h1:v+OssWQX+hTHEmOBgwxdZxK4zHq3yOs8F9J7mk0PY8E=
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
