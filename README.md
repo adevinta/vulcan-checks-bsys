@@ -14,3 +14,16 @@ CGO_ENABLED=0 FORCE_BUILD="vulcan-nessus" TRAVIS_BRANCH="nessus" ../vulcan-check
 
 CGO_ENABLED=0 ../vulcan-checks-bsys/cmd/vulcan-build-images/vulcan-build-images -i ./images_to_build
 ```
+
+# How to run a check locally and generate a report with its output
+
+You will also have to install the [security-overview](https://github.com/adevinta/security-overview) command line
+tool and have a [local.toml](https://github.com/adevinta/vulcan-checks/blob/master/cmd/vulcan-exposed-http/local.toml.example) file in the check's directory.
+
+Example:
+```
+git clone https://github.com/adevinta/vulcan-checks
+cd vulcan-checks/
+vulcan-build-images -r cmd/vulcan-http-headers -o ./check_report.json
+vulcan-security-overview -config security-overview.toml -check check_report.json
+```
