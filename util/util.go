@@ -27,6 +27,7 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
+	specs "github.com/opencontainers/image-spec/specs-go/v1"
 	"golang.org/x/crypto/ssh/terminal"
 	"gopkg.in/resty.v1"
 
@@ -89,8 +90,11 @@ func RunCheckImage(imgName string, env []string) error {
 		AttachStdin:  true,
 		Env:          env,
 	}
-
-	r, err := cli.ContainerCreate(ctx, cfg, nil, nil, "")
+	platform := &specs.Platform{
+		OS:           "linux",
+		Architecture: "amd64",
+	}
+	r, err := cli.ContainerCreate(ctx, cfg, nil, nil, platform, "")
 	if err != nil {
 		return err
 	}
@@ -115,7 +119,79 @@ func RunCheckImage(imgName string, env []string) error {
 		return err
 	}
 
-	_, err = cli.ContainerWait(ctx, r.ID)
+	wait, waitErr := cli.ContainerWait(ctx, r.ID, container.WaitConditionNotRunning)
+	select {
+	case _ = <-wait:
+	case err = <-waitErr:
+	}
+
+	return err
+}
+
+// RunCheckReportImage creates an runs a check in a container using json output.
+func RunCheckReportImage(imgName string, env []string, target string, host bool) error {
+	envCli, err := client.NewEnvClient()
+	if err != nil {
+		return err
+	}
+	cli := envCli
+	ctx := context.Background()
+
+	info, _, err := envCli.ImageInspectWithRaw(ctx, imgName)
+	if err != nil {
+		return err
+	}
+
+	cfg := &container.Config{
+		Image: imgName,
+		Cmd: []string{
+			strings.Join([]string(info.Config.Cmd), " "),
+		},
+		AttachStdout: true,
+		AttachStderr: true,
+		AttachStdin:  true,
+		Env:          env,
+	}
+	var hconfig *container.HostConfig
+	if host {
+		hconfig = &container.HostConfig{
+			NetworkMode: "host",
+		}
+	}
+	platform := &specs.Platform{
+		OS:           "linux",
+		Architecture: "amd64",
+	}
+	r, err := cli.ContainerCreate(ctx, cfg, hconfig, nil, platform, "")
+	if err != nil {
+		return err
+	}
+
+	attResp, err := envCli.ContainerAttach(ctx, r.ID, types.ContainerAttachOptions{Stdout: true,
+		Stderr: true,
+		Stdin:  true,
+		Stream: true,
+		Logs:   true,
+	})
+	if err != nil {
+		return err
+	}
+	defer attResp.Close()
+
+	if err = cli.ContainerStart(ctx, r.ID, types.ContainerStartOptions{}); err != nil {
+		return err
+	}
+
+	_, err = io.Copy(os.Stdout, attResp.Reader)
+	if err != nil {
+		return err
+	}
+
+	wait, waitErr := cli.ContainerWait(ctx, r.ID, container.WaitConditionNotRunning)
+	select {
+	case _ = <-wait:
+	case err = <-waitErr:
+	}
 
 	return err
 }
