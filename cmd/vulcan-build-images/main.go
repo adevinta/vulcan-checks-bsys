@@ -268,9 +268,9 @@ func publishChecks(endpoint string) error {
 
 func manifestChecks(images []checkImageInfo) error {
 	checks := struct {
-		CheckTypes []persistence.Checktype `json:"checktypes"`
+		CheckTypes []persistence.ChecktypeV2 `json:"checktypes"`
 	}{
-		CheckTypes: []persistence.Checktype{},
+		CheckTypes: []persistence.ChecktypeV2{},
 	}
 
 	for _, img := range images {
@@ -278,11 +278,13 @@ func manifestChecks(images []checkImageInfo) error {
 		if err != nil {
 			return err
 		}
-		checks.CheckTypes = append(checks.CheckTypes, persistence.Checktype{
+		options := map[string]interface{}{}
+		json.Unmarshal([]byte(img.manifest.Options), &options)
+		checks.CheckTypes = append(checks.CheckTypes, persistence.ChecktypeV2{
 			Name:         img.checktypeName,
 			Description:  img.manifest.Description,
 			Image:        img.imageName,
-			Options:      img.manifest.Options,
+			Options:      options,
 			RequiredVars: img.manifest.RequiredVars,
 			Timeout:      img.manifest.Timeout,
 			Assets:       assetsTypes,

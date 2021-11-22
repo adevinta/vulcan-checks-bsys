@@ -26,6 +26,18 @@ type Checktype struct {
 	QueueName    string   `json:"queue_name,omitempty"`
 	Assets       []string `json:"assets"`
 }
+
+type ChecktypeV2 struct {
+	Name         string                 `json:"name"`
+	Description  string                 `json:"description"`
+	Timeout      int                    `json:"timeout,omitempty"`
+	Image        string                 `json:"image"`
+	Options      map[string]interface{} `json:"options,omitempty"`
+	RequiredVars []string               `json:"required_vars"`
+	QueueName    string                 `json:"queue_name,omitempty"`
+	Assets       []string               `json:"assets"`
+}
+
 type checkTypePostRequest struct {
 	Check Checktype `json:"checktype"`
 }
