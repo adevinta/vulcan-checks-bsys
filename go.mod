@@ -5,7 +5,7 @@ go 1.13
 require (
 	github.com/BurntSushi/toml v0.4.1
 	github.com/Microsoft/go-winio v0.5.1 // indirect
-	github.com/adevinta/vulcan-check-sdk v0.0.0-20211117083331-f1882f669b24
+	github.com/adevinta/vulcan-check-sdk v0.0.0-20211122111204-cc3fc54f8f13
 	github.com/adevinta/vulcan-report v0.0.0-20211117082128-cadc974cc14c
 	github.com/containerd/containerd v1.5.7 // indirect
 	github.com/docker/docker v20.10.9+incompatible
@@ -20,9 +20,9 @@ require (
 	github.com/morikuni/aec v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.1
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
-	golang.org/x/crypto v0.0.0-20211115234514-b4de73f9ece8
-	golang.org/x/net v0.0.0-20211116231205-47ca1ff31462 // indirect
-	golang.org/x/sys v0.0.0-20211116061358-0a5406a5449c // indirect
+	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871
+	golang.org/x/net v0.0.0-20211118161319-6a13c67c3ce4 // indirect
+	golang.org/x/sys v0.0.0-20211117180635-dee7805ff2e1 // indirect
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac // indirect
 	google.golang.org/grpc v1.41.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
