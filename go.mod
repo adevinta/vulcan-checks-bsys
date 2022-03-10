@@ -5,7 +5,7 @@ go 1.13
 require (
 	github.com/BurntSushi/toml v0.4.1
 	github.com/Microsoft/go-winio v0.5.1 // indirect
-	github.com/adevinta/vulcan-check-sdk v0.0.0-20211122111204-cc3fc54f8f13
+	github.com/adevinta/vulcan-check-sdk v0.0.0-20220310134835-cdc1f862f2e6
 	github.com/adevinta/vulcan-report v0.0.0-20211117082128-cadc974cc14c
 	github.com/containerd/containerd v1.5.7 // indirect
 	github.com/docker/docker v20.10.9+incompatible
