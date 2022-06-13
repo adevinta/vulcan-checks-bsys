@@ -7,7 +7,7 @@ require (
 	github.com/adevinta/vulcan-check-sdk v1.0.0-rc1.0.20220610121334-1bdc872019dd
 	github.com/adevinta/vulcan-report v1.0.0
 	github.com/docker/docker v20.10.17+incompatible
-	github.com/google/go-cmp v0.5.6
+	github.com/google/go-cmp v0.5.8
 	github.com/google/uuid v1.3.0
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/manelmontilla/toml v0.3.0
@@ -34,6 +34,5 @@ require (
 	golang.org/x/sys v0.0.0-20220610221304-9f5ed59c137d // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac // indirect
-	golang.org/x/xerrors v0.0.0-20220609144429-65e65417b02f // indirect
 	gotest.tools/v3 v3.0.3 // indirect
 )
