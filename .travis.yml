@@ -11,5 +11,4 @@ env:
     - DOCKER_API_VERSION=1.23
 go_import_path: github.com/adevinta/vulcan-checks-bsys
 script:
-  - go get ./cmd/vulcan-build-images/testdata/testcheck
   - go test -short ./...
