@@ -3,7 +3,7 @@ dist: bionic
 services:
   - docker
 go:
-  - 1.13.3
+  - 1.18.x
 env:
   global:
     - IMAGES_TO_BUILD_PATH=/tmp/images

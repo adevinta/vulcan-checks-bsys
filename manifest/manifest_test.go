@@ -9,7 +9,7 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"reflect"
 	"testing"
 
@@ -93,7 +93,7 @@ func TestRead(t *testing.T) {
 						t.Error(err)
 						return
 					}
-					err = ioutil.WriteFile(goldenFilePath, buff.Bytes(), 0644)
+					err = os.WriteFile(goldenFilePath, buff.Bytes(), 0644)
 					if err != nil {
 						t.Fatalf("Error writing golden file %v", err)
 					}

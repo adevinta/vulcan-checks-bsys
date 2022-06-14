@@ -9,7 +9,6 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
@@ -258,7 +257,7 @@ func publishChecks(endpoint string) error {
 }
 
 func readImageDirs(path string) (paths []string, err error) {
-	content, err := ioutil.ReadFile(path)
+	content, err := os.ReadFile(path)
 	if err != nil {
 		return
 	}
@@ -547,7 +546,7 @@ func forceRunReport(imagePath string, reportPath string) error {
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile(reportPath, content, 0777)
+	return os.WriteFile(reportPath, content, 0777)
 }
 
 func closeQueue(q *queue.SimpleMQClientServer, qdone chan error) error {
