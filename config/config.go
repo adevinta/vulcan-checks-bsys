@@ -5,13 +5,13 @@ Copyright 2019 Adevinta
 package config
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 
 	"fmt"
-	"github.com/BurntSushi/toml"
 	"os/user"
+
+	"github.com/BurntSushi/toml"
 )
 
 // Cfg contains the loaded confing.
@@ -44,7 +44,7 @@ func LoadFrom(path string) error {
 		path = filepath.Join(usr.HomeDir, ".vulcan-checks-bsys.toml")
 
 	}
-	contents, err := ioutil.ReadFile(path)
+	contents, err := os.ReadFile(path)
 	if err != nil {
 		return err
 	}

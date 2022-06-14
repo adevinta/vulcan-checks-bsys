@@ -7,7 +7,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"path"
@@ -112,7 +111,7 @@ func forceDetectOneImage(baseDir, resultFilePath, imageName string) error {
 	}
 	result := strings.Join(dirs, "\n")
 	logger.Printf("Image to build:\n%v", result)
-	return ioutil.WriteFile(resultFilePath, []byte(result), 0644)
+	return os.WriteFile(resultFilePath, []byte(result), 0644)
 
 }
 
@@ -141,7 +140,7 @@ func detectImages(baseDir, resultFilePath string, force bool) error {
 
 	result := strings.Join(dirs, "\n")
 	logger.Printf("Images to build:\n%v", result)
-	return ioutil.WriteFile(resultFilePath, []byte(result), 0644)
+	return os.WriteFile(resultFilePath, []byte(result), 0644)
 }
 func getDirsUnder(dir string) (dirs []string, err error) {
 	f, err := os.Open(dir)

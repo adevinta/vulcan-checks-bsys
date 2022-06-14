@@ -11,7 +11,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/http/httptest"
@@ -170,13 +169,13 @@ func TestBuildTarFromDir(t *testing.T) {
 			}
 			if tt.goldenPath != "" {
 				if *update {
-					err = ioutil.WriteFile(tt.goldenPath, []byte(gotContents), 0644)
+					err = os.WriteFile(tt.goldenPath, []byte(gotContents), 0644)
 					if err != nil {
 						t.Fatalf("Error writing golden file %v", err)
 					}
 				}
 				var aux []byte
-				aux, err = ioutil.ReadFile(tt.goldenPath)
+				aux, err = os.ReadFile(tt.goldenPath)
 				if err != nil {
 					t.Error(err)
 				}
