@@ -89,9 +89,9 @@ func RunCheckImage(imgName string, env []string) error {
 		AttachStdin:  true,
 		Env:          env,
 	}
+
 	platform := &specs.Platform{
-		OS:           "linux",
-		Architecture: "amd64",
+		OS: "linux",
 	}
 	r, err := cli.ContainerCreate(ctx, cfg, nil, nil, platform, "")
 	if err != nil {
