@@ -3,7 +3,7 @@ module github.com/adevinta/vulcan-checks-bsys
 go 1.18
 
 require (
-	github.com/BurntSushi/toml v1.2.1
+	github.com/BurntSushi/toml v1.3.0
 	github.com/adevinta/vulcan-check-sdk v1.0.4
 	github.com/adevinta/vulcan-report v1.0.0
 	github.com/docker/docker v20.10.17+incompatible
