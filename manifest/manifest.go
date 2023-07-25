@@ -33,7 +33,7 @@ const (
 	WebAddress
 	// GitRepository represents a git repo asset type.
 	GitRepository
-	// GCPProject represents a GCP Project type.
+	// GCPProject represents a GCP Project asset type.
 	GCPProject
 )
 
