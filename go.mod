@@ -6,7 +6,7 @@ require (
 	github.com/BurntSushi/toml v1.2.1
 	github.com/adevinta/vulcan-check-sdk v1.0.4
 	github.com/adevinta/vulcan-report v1.0.0
-	github.com/docker/docker v24.0.5+incompatible
+	github.com/docker/docker v24.0.6+incompatible
 	github.com/google/go-cmp v0.5.9
 	github.com/google/uuid v1.3.0
 	github.com/julienschmidt/httprouter v1.3.0
