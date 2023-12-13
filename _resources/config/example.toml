@@ -1,6 +1,6 @@
 "docker_api_base_url" = "https://example.com/docker/api/docker/docker-local/v2"
 "docker_api_base_extended_url" = "https://docker.example.com/docker/docker-local"
-"docker_registry_user" = ""  # can be overridden with the env var DOCKER_REGISTRY_USR.
+"docker_registry_user" = ""  # can be overridden with the env var DOCKER_REGISTRY_USER.
 "docker_registry_pwd"  = ""  # can be overridden with the env var DOCKER_REGISTRY_PWD.
 "docker_registry" = "https://docker.example.com" # can be overridden with the env var DOCKER_REGISTRY.
 "sdk_path" = "github.com/adevinta/vulcan-check-sdk"
@@ -9,7 +9,7 @@
 # Defines the url's of the persistence envs that the checks need to be
 # published to when a commit is made to the master branch of the checks
 # repository. If publishing any of these envs fails the build system with fail
-# the operation. 
+# the operation.
 "primary_master_branch_envs" = ["https://vulcan-persistence-dev.example.com"]
 
 # Defines the url's of the persistence envs that the checks need to be
