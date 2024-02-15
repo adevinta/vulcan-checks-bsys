@@ -11,7 +11,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/manelmontilla/toml v0.3.0
-	github.com/opencontainers/image-spec v1.0.2
+	github.com/opencontainers/image-spec v1.1.0
 	golang.org/x/crypto v0.19.0
 	gopkg.in/resty.v1 v1.12.0
 )
