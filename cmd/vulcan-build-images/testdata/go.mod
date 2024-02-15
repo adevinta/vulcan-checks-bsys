@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/adevinta/vulcan-check-sdk v1.0.1
 	github.com/adevinta/vulcan-report v1.0.0
-	github.com/kr/pretty v0.3.0
+	github.com/kr/pretty v0.3.1
 )
 
 require (
@@ -27,7 +27,7 @@ require (
 	github.com/miekg/dns v1.1.49 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
-	github.com/rogpeppe/go-internal v1.8.1 // indirect
+	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/xanzy/ssh-agent v0.3.1 // indirect
