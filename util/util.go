@@ -25,9 +25,10 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/api/types/registry"
 	"github.com/docker/docker/client"
 	specs "github.com/opencontainers/image-spec/specs-go/v1"
-	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/term"
 	"gopkg.in/resty.v1"
 
 	"github.com/adevinta/vulcan-checks-bsys/config"
@@ -43,7 +44,7 @@ type RegistryConfig struct {
 
 // BuildImage builds and image given a tar, a list of tags and labels.
 func BuildImage(tarFile io.Reader, tags []string, labels map[string]string) (response string, err error) {
-	cli, err := client.NewEnvClient()
+	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
 		return "", err
 	}
@@ -66,14 +67,13 @@ func BuildImage(tarFile io.Reader, tags []string, labels map[string]string) (res
 
 // RunCheckImage creates an runs a check in a container.
 func RunCheckImage(imgName string, env []string) error {
-	envCli, err := client.NewEnvClient()
+	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
 		return err
 	}
-	cli := envCli
 	ctx := context.Background()
 
-	info, _, err := envCli.ImageInspectWithRaw(ctx, imgName)
+	info, _, err := cli.ImageInspectWithRaw(ctx, imgName)
 	if err != nil {
 		return err
 	}
@@ -98,7 +98,7 @@ func RunCheckImage(imgName string, env []string) error {
 		return err
 	}
 
-	attResp, err := envCli.ContainerAttach(ctx, r.ID, types.ContainerAttachOptions{Stdout: true,
+	attResp, err := cli.ContainerAttach(ctx, r.ID, container.AttachOptions{Stdout: true,
 		Stderr: true,
 		Stdin:  true,
 		Stream: true,
@@ -109,7 +109,7 @@ func RunCheckImage(imgName string, env []string) error {
 	}
 	defer attResp.Close()
 
-	if err = cli.ContainerStart(ctx, r.ID, types.ContainerStartOptions{}); err != nil {
+	if err = cli.ContainerStart(ctx, r.ID, container.StartOptions{}); err != nil {
 		return err
 	}
 
@@ -120,7 +120,7 @@ func RunCheckImage(imgName string, env []string) error {
 
 	wait, waitErr := cli.ContainerWait(ctx, r.ID, container.WaitConditionNotRunning)
 	select {
-	case _ = <-wait:
+	case <-wait:
 	case err = <-waitErr:
 	}
 
@@ -129,7 +129,7 @@ func RunCheckImage(imgName string, env []string) error {
 
 // RunCheckReportImage creates an runs a check in a container using json output.
 func RunCheckReportImage(imgName string, env []string, target string, host bool) error {
-	envCli, err := client.NewEnvClient()
+	envCli, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
 		return err
 	}
@@ -166,7 +166,7 @@ func RunCheckReportImage(imgName string, env []string, target string, host bool)
 		return err
 	}
 
-	attResp, err := envCli.ContainerAttach(ctx, r.ID, types.ContainerAttachOptions{Stdout: true,
+	attResp, err := envCli.ContainerAttach(ctx, r.ID, container.AttachOptions{Stdout: true,
 		Stderr: true,
 		Stdin:  true,
 		Stream: true,
@@ -177,7 +177,7 @@ func RunCheckReportImage(imgName string, env []string, target string, host bool)
 	}
 	defer attResp.Close()
 
-	if err = cli.ContainerStart(ctx, r.ID, types.ContainerStartOptions{}); err != nil {
+	if err = cli.ContainerStart(ctx, r.ID, container.StartOptions{}); err != nil {
 		return err
 	}
 
@@ -188,7 +188,7 @@ func RunCheckReportImage(imgName string, env []string, target string, host bool)
 
 	wait, waitErr := cli.ContainerWait(ctx, r.ID, container.WaitConditionNotRunning)
 	select {
-	case _ = <-wait:
+	case <-wait:
 	case err = <-waitErr:
 	}
 
@@ -197,7 +197,7 @@ func RunCheckReportImage(imgName string, env []string, target string, host bool)
 
 // PushImage pushes a image to a given repository using provided credentials.
 func PushImage(imageName string, logger *log.Logger) (response string, err error) {
-	envCli, err := client.NewEnvClient()
+	envCli, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
 		return "", err
 	}
@@ -206,7 +206,7 @@ func PushImage(imageName string, logger *log.Logger) (response string, err error
 	ctx := context.Background()
 
 	username, password := getDockerCredentials()
-	cfg := types.AuthConfig{
+	cfg := registry.AuthConfig{
 		Username:      username,
 		Password:      password,
 		ServerAddress: config.Cfg.DockerRegistry,
@@ -400,7 +400,7 @@ func askForCredentials() (username, password string) {
 	}
 
 	fmt.Print("Enter Password for artifactory: ")
-	bytePassword, err := terminal.ReadPassword(int(tty.Fd()))
+	bytePassword, err := term.ReadPassword(int(tty.Fd()))
 	if err != nil {
 		// NOTE: consider using a logger.
 		fmt.Printf("Can not get artifactory credentials")
@@ -591,14 +591,14 @@ func parseGitLogLine(gitLogOutput string) (commit string, err error) {
 	// Example:  "137559c Fix error in  vulcan-is-exposed. (#5)"
 	gitLines := strings.Split(gitLogOutput, "\n")
 	if len(gitLines) < 1 {
-		err = fmt.Errorf("Format error in log result: %s", gitLogOutput)
+		err = fmt.Errorf("format error in log result: %s", gitLogOutput)
 		return
 	}
 
 	gitLine := gitLines[0]
 	parts := strings.Fields(gitLine)
 	if len(parts) < 1 {
-		err = fmt.Errorf("Format error in log result: %s", gitLogOutput)
+		err = fmt.Errorf("format error in log result: %s", gitLogOutput)
 		return
 	}
 
