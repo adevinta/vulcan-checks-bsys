@@ -4,8 +4,8 @@ github.com/BurntSushi/toml v1.4.0 h1:kuoIxZQy2WRRk1pttg9asf+WVv6tWQuBNVmK8+nqPr0
 github.com/BurntSushi/toml v1.4.0/go.mod h1:ukJfTF/6rtPPRCnwkur4qwRxa8vTRFBF0uk2lLoLwho=
 github.com/Microsoft/go-winio v0.6.1 h1:9/kr64B9VUZrLm5YYwbGtUJnMgqWVOdUAXu6Migciow=
 github.com/Microsoft/go-winio v0.6.1/go.mod h1:LRdKpFKfdobln8UmuiYcKPot9D2v6svN5+sAH+4kjUM=
-github.com/adevinta/vulcan-check-sdk v1.4.0 h1:t+0ebXLTIRyY44o6/dVTE91KWjs7iPUI7kBMa864gTc=
-github.com/adevinta/vulcan-check-sdk v1.4.0/go.mod h1:pKBiHUkx1YdBp3nSL+GJ4iBJuaPGOvuUpirxMA7dv+g=
+github.com/adevinta/vulcan-check-sdk v1.4.1 h1:C2+udN0X5JY4QqsAvFs7AvArDssh/6M0R6yP3YjyuMA=
+github.com/adevinta/vulcan-check-sdk v1.4.1/go.mod h1:0oFsLl8xk3whoYucAJzt4oM4j9W7bvFEb515BsoVpxQ=
 github.com/adevinta/vulcan-report v1.0.0 h1:44aICPZ+4svucgCSA5KmjlT3ZGzrvZXiSnkbnj6AC2k=
 github.com/adevinta/vulcan-report v1.0.0/go.mod h1:k34KaeoXc3H77WNMwI9F4F1G28hBjB95PeMUp9oHbEE=
 github.com/cenkalti/backoff/v4 v4.2.1 h1:y4OZtCnogmCPw98Zjyt5a6+QwPLGkiQsYW5oUqylYbM=
