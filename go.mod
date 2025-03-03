@@ -12,7 +12,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/manelmontilla/toml v0.3.0
-	github.com/opencontainers/image-spec v1.1.0
+	github.com/opencontainers/image-spec v1.1.1
 	golang.org/x/term v0.29.0
 	gopkg.in/resty.v1 v1.12.0
 )
