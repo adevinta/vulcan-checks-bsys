@@ -6,7 +6,7 @@ toolchain go1.24.1
 
 require (
 	github.com/BurntSushi/toml v1.4.0
-	github.com/adevinta/vulcan-check-sdk v1.4.0
+	github.com/adevinta/vulcan-check-sdk v1.4.1
 	github.com/adevinta/vulcan-report v1.0.0
 	github.com/docker/docker v25.0.5+incompatible
 	github.com/google/go-cmp v0.6.0
