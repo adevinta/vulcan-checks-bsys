@@ -1,7 +1,6 @@
 module github.com/adevinta/vulcan-checks-bsys
 
 go 1.22
-
 toolchain go1.24.1
 
 require (
@@ -14,7 +13,7 @@ require (
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/manelmontilla/toml v0.3.0
 	github.com/opencontainers/image-spec v1.1.0
-	golang.org/x/term v0.29.0
+	golang.org/x/term v0.30.0
 	gopkg.in/resty.v1 v1.12.0
 )
 
@@ -43,7 +42,7 @@ require (
 	golang.org/x/mod v0.18.0 // indirect
 	golang.org/x/net v0.34.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
-	golang.org/x/sys v0.30.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
 	golang.org/x/time v0.9.0 // indirect
 	golang.org/x/tools v0.22.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20241209162323-e6fa225c2576 // indirect
